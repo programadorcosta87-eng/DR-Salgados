@@ -1,0 +1,85 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ============================================================
+    // Funções auxiliares
+    // ============================================================
+
+    // Usuário autenticado.
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Usuário com função administrativa definida por Custom Claim.
+    // Configure o claim "admin": true no Firebase Authentication
+    // para os usuários que realmente precisam administrar a loja.
+    function isAdmin() {
+      return isAuthenticated()
+        && request.auth.token.admin == true;
+    }
+
+    // ============================================================
+    // Cardápio
+    // ============================================================
+    // O cardápio é público para leitura.
+    // Alterações ficam restritas a administradores.
+    match /menu_items/{itemId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ============================================================
+    // Configurações da loja
+    // ============================================================
+    // Configurações como WhatsApp, Pix e marca podem ser lidas
+    // pelo cliente, mas não devem ser alteradas publicamente.
+    match /settings/{settingId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ============================================================
+    // Pedidos
+    // ============================================================
+    // Qualquer visitante pode criar um pedido.
+    // Apenas administradores podem consultar, alterar ou excluir
+    // pedidos existentes.
+    match /orders/{orderId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // ============================================================
+    // Clientes / Fidelidade
+    // ============================================================
+    // Dados de clientes são privados e administrativos.
+    match /customers/{customerId} {
+      allow read, create, update, delete: if isAdmin();
+    }
+
+    // ============================================================
+    // Ingredientes / Estoque / Receitas
+    // ============================================================
+    // Dados internos da operação da loja.
+    match /ingredients/{ingredientId} {
+      allow read, create, update, delete: if isAdmin();
+    }
+
+    // ============================================================
+    // Funcionários
+    // ============================================================
+    // Dados sensíveis: somente administradores.
+    match /employees/{employeeId} {
+      allow read, create, update, delete: if isAdmin();
+    }
+
+    // ============================================================
+    // Negar qualquer coleção não declarada acima.
+    // ============================================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
