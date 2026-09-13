@@ -1,34 +1,43 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Menu items: open for reading catalog and updating by store
+    
+    // Função auxiliar para verificar se o usuário está autenticado
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Cardápio: qualquer pessoa pode visualizar, mas só usuários autenticados alteram
     match /menu_items/{itemId} {
-      allow read, write: if true;
+      allow read: if true;
+      allow write: if isAuthenticated();
     }
     
-    // Store settings, WhatsApp, Pix, branding
+    // Configurações da loja (WhatsApp, Pix, marca): público para leitura, protegido para escrita
     match /settings/{settingId} {
-      allow read, write: if true;
+      allow read: if true;
+      allow write: if isAuthenticated();
     }
     
-    // Orders placed by customers and managed by store
+    // Pedidos: qualquer cliente pode criar um pedido; apenas usuários autenticados gerenciam/alteram
     match /orders/{orderId} {
-      allow read, write: if true;
+      allow create: if true;
+      allow read, update, delete: if isAuthenticated();
     }
     
-    // Customers and Loyalty Points
+    // Dados de Clientes e Fidelidade: criação/leitura de pedidos ou restrito a autenticados
     match /customers/{customerId} {
-      allow read, write: if true;
+      allow read, write: if isAuthenticated();
     }
     
-    // Stock Ingredients & Recipes
+    // Estoque e Receitas: dados internos, apenas usuários autenticados
     match /ingredients/{ingredientId} {
-      allow read, write: if true;
+      allow read, write: if isAuthenticated();
     }
     
-    // Employees
+    // Funcionários: dados sensíveis, apenas usuários autenticados
     match /employees/{employeeId} {
-      allow read, write: if true;
+      allow read, write: if isAuthenticated();
     }
   }
 }
