@@ -22,7 +22,6 @@
       "type": "object",
       "properties": {
         "whatsapp": { "type": "string", "maxLength": 30 },
-        "adminPassword": { "type": "string", "maxLength": 100 },
         "isOpen": { "type": "boolean" },
         "categories": { "type": "array" },
         "deliveryFee": { "type": "number" },
@@ -35,7 +34,7 @@
         "primaryColor": { "type": "string", "maxLength": 30 },
         "fontFamily": { "type": "string", "maxLength": 50 },
         "silverMinPoints": { "type": "number" },
-        "goldMinPoints": { "number": "number" },
+        "goldMinPoints": { "type": "number" },
         "silverBenefit": { "type": "string", "maxLength": 50 },
         "goldBenefit": { "type": "string", "maxLength": 50 }
       }
@@ -89,16 +88,15 @@
     },
     "Employee": {
       "title": "Employee",
-      "description": "Funcionário ou atendente com credencial de acesso",
+      "description": "Perfil do funcionário vinculado ao Firebase Authentication",
       "type": "object",
       "properties": {
-        "id": { "type": "string", "maxLength": 50 },
+        "id": { "type": "string", "maxLength": 50, "description": "UID gerado pelo Firebase Auth" },
         "name": { "type": "string", "maxLength": 100 },
         "username": { "type": "string", "maxLength": 50 },
-        "password": { "type": "string", "maxLength": 100 },
         "role": { "type": "string", "maxLength": 30 }
       },
-      "required": ["name", "username", "password", "role"]
+      "required": ["name", "username", "role"]
     }
   },
   "firestore": {
