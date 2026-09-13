@@ -1,0 +1,130 @@
+{
+  "entities": {
+    "MenuItem": {
+      "title": "MenuItem",
+      "description": "Item do cardápio digital",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "ID único do item" },
+        "name": { "type": "string", "description": "Nome do salgado ou produto", "maxLength": 100 },
+        "price": { "type": "number", "description": "Preço de venda" },
+        "costPrice": { "type": "number", "description": "Preço de custo calculado pela receita" },
+        "description": { "type": "string", "description": "Descrição detalhada dos ingredientes", "maxLength": 500 },
+        "category": { "type": "string", "description": "Categoria do item", "maxLength": 50 },
+        "image": { "type": "string", "description": "URL da foto do produto", "maxLength": 1000 },
+        "recipe": { "type": "array", "description": "Ficha técnica com insumos e quantidades" }
+      },
+      "required": ["name", "price", "category"]
+    },
+    "StoreConfig": {
+      "title": "StoreConfig",
+      "description": "Configurações gerais da loja, entrega, Pix e programa de fidelidade",
+      "type": "object",
+      "properties": {
+        "whatsapp": { "type": "string", "maxLength": 30 },
+        "adminPassword": { "type": "string", "maxLength": 100 },
+        "isOpen": { "type": "boolean" },
+        "categories": { "type": "array" },
+        "deliveryFee": { "type": "number" },
+        "pixKey": { "type": "string", "maxLength": 150 },
+        "pixQrCodeImage": { "type": "string", "maxLength": 500000 },
+        "pointsPerReal": { "type": "number" },
+        "pointValueInReal": { "type": "number" },
+        "loyaltySystemEnabled": { "type": "boolean" },
+        "logoUrl": { "type": "string", "maxLength": 500000 },
+        "primaryColor": { "type": "string", "maxLength": 30 },
+        "fontFamily": { "type": "string", "maxLength": 50 },
+        "silverMinPoints": { "type": "number" },
+        "goldMinPoints": { "number": "number" },
+        "silverBenefit": { "type": "string", "maxLength": 50 },
+        "goldBenefit": { "type": "string", "maxLength": 50 }
+      }
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Pedido efetuado por cliente ou mesa",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 50 },
+        "tableNumber": { "type": "string", "maxLength": 20 },
+        "items": { "type": "array" },
+        "total": { "type": "number" },
+        "createdAt": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "maxLength": 30 },
+        "customerName": { "type": "string", "maxLength": 100 },
+        "orderType": { "type": "string", "maxLength": 30 },
+        "paymentMethod": { "type": "string", "maxLength": 30 },
+        "deliveryFee": { "type": "number" },
+        "pointsRedeemed": { "type": "number" },
+        "discountApplied": { "type": "number" }
+      },
+      "required": ["items", "total"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Cliente cadastrado para acúmulo e resgate de pontos",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 50 },
+        "name": { "type": "string", "maxLength": 100 },
+        "points": { "type": "number" },
+        "totalSpent": { "type": "number" },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["name"]
+    },
+    "Ingredient": {
+      "title": "Ingredient",
+      "description": "Insumo de estoque para controle e cálculo de fichas técnicas",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 50 },
+        "name": { "type": "string", "maxLength": 100 },
+        "unit": { "type": "string", "maxLength": 20 },
+        "currentStock": { "type": "number" },
+        "minStock": { "type": "number" },
+        "costPerUnit": { "type": "number" }
+      },
+      "required": ["name", "unit", "currentStock"]
+    },
+    "Employee": {
+      "title": "Employee",
+      "description": "Funcionário ou atendente com credencial de acesso",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 50 },
+        "name": { "type": "string", "maxLength": 100 },
+        "username": { "type": "string", "maxLength": 50 },
+        "password": { "type": "string", "maxLength": 100 },
+        "role": { "type": "string", "maxLength": 30 }
+      },
+      "required": ["name", "username", "password", "role"]
+    }
+  },
+  "firestore": {
+    "/menu_items/{itemId}": {
+      "schema": "MenuItem",
+      "description": "Coleção de itens do cardápio digital"
+    },
+    "/settings/{settingId}": {
+      "schema": "StoreConfig",
+      "description": "Configurações da loja"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Coleção de pedidos em tempo real"
+    },
+    "/customers/{customerId}": {
+      "schema": "Customer",
+      "description": "Coleção de clientes e pontos de fidelidade"
+    },
+    "/ingredients/{ingredientId}": {
+      "schema": "Ingredient",
+      "description": "Coleção de insumos e controle de estoque"
+    },
+    "/employees/{employeeId}": {
+      "schema": "Employee",
+      "description": "Coleção de funcionários com controle de acesso"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "DR Salgados - Cardápio Digital",
+  "description": "Cardápio digital premium interativo em tempo real para a lanchonete DR Salgados, com carrinho, pedidos via WhatsApp e painel administrativo completo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

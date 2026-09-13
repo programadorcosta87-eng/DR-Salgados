@@ -1,0 +1,34 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Menu items: open for reading catalog and updating by store
+    match /menu_items/{itemId} {
+      allow read, write: if true;
+    }
+    
+    // Store settings, WhatsApp, Pix, branding
+    match /settings/{settingId} {
+      allow read, write: if true;
+    }
+    
+    // Orders placed by customers and managed by store
+    match /orders/{orderId} {
+      allow read, write: if true;
+    }
+    
+    // Customers and Loyalty Points
+    match /customers/{customerId} {
+      allow read, write: if true;
+    }
+    
+    // Stock Ingredients & Recipes
+    match /ingredients/{ingredientId} {
+      allow read, write: if true;
+    }
+    
+    // Employees
+    match /employees/{employeeId} {
+      allow read, write: if true;
+    }
+  }
+}

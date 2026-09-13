@@ -1,0 +1,22 @@
+{
+  "name": "DR Salgados - Cardápio Digital Premium",
+  "short_name": "DR Salgados",
+  "description": "Peça os melhores salgados, doces e bebidas premium no Cardápio Digital DR Salgados.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080c14",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/logo.jpg",
+      "type": "image/jpeg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/logo.jpg",
+      "type": "image/jpeg",
+      "sizes": "512x512"
+    }
+  ]
+}
