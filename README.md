@@ -2,7 +2,6 @@
 
 Cardápio digital completo para lanchonete, com sistema de pedidos em tempo real e painel administrativo.
 
-🔗 Acesse o projeto: https://dr-salgados.netlify.app
 
 ---
 
