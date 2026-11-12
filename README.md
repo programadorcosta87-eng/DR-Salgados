@@ -32,14 +32,16 @@ A proposta é oferecer uma solução simples para o cliente final e, ao mesmo te
 
 ## 🛠️ Tecnologias
 
-* HTML5
-* CSS3
-* JavaScript
-* React
 * TypeScript
+* React 19
+* Vite
+* Tailwind CSS 4
+* Express
 * Firebase / Firestore
-* Netlify
+* JavaScript para recursos auxiliares e Service Worker
 * Progressive Web App (PWA)
+* Netlify — configuração de deploy
+* Lucide React e Motion — interface e animações
 
 ---
 
